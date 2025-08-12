@@ -1,0 +1,21 @@
+# Task 3: Password Generator (Modified Version)
+import secrets
+import string
+
+def generate_password():
+    try:
+        length = int(input("Password length: "))
+        if length <= 0:
+            print("Length must be positive.")
+            return
+
+        # Characters: lowercase, uppercase, digits, punctuation
+        pool = string.ascii_letters + string.digits + string.punctuation
+
+        password = ''.join(secrets.choice(pool) for _ in range(length))
+        print("Your secure password:", password)
+
+    except ValueError:
+        print("Please enter a valid number.")
+
+generate_password()
