@@ -1,24 +1,24 @@
-# Task 2: Simple Calculator
+# Task 2: Simple Calculator (Modified Version)
 
-# Get inputs
-num1 = float(input("Enter first number: "))
-num2 = float(input("Enter second number: "))
-operation = input("Enter operation (+, -, *, /): ")
+def calculator():
+    try:
+        a = float(input("First number: "))
+        b = float(input("Second number: "))
+        op = input("Choose an operation (+, -, *, /): ").strip()
 
-# Perform calculation
-if operation == '+':
-    result = num1 + num2
-elif operation == '-':
-    result = num1 - num2
-elif operation == '*':
-    result = num1 * num2
-elif operation == '/':
-    if num2 != 0:
-        result = num1 / num2
-    else:
-        result = "Error! Division by zero."
-else:
-    result = "Invalid operation."
+        operations = {
+            '+': a + b,
+            '-': a - b,
+            '*': a * b,
+            '/': "Cannot divide by zero" if b == 0 else a / b
+        }
 
-# Display result
-print("Result:", result)
+        if op in operations:
+            print(f"Result: {operations[op]}")
+        else:
+            print("Invalid operation. Please choose +, -, *, or /.")
+
+    except ValueError:
+        print("Invalid input! Please enter numeric values.")
+
+calculator()
