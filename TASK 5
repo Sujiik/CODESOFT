@@ -1,0 +1,100 @@
+# Task 5: Contact Book (Expanded Manual Version)
+
+# Step 1: Create an empty dictionary to store contacts
+contacts = {}
+
+print("===================================")
+print("        CONTACT BOOK SYSTEM        ")
+print("===================================")
+print("Options available:")
+print("1. Add a new contact")
+print("2. View all contacts")
+print("3. Search for a contact")
+print("4. Update an existing contact")
+print("5. Delete a contact")
+print("6. Exit the program")
+print("-----------------------------------")
+
+# Step 2: Start a loop to keep the program running
+while True:
+    # Step 3: Ask the user to choose an action
+    choice = input("\nEnter your choice (1-6): ")
+
+    # Step 4: Add a new contact
+    if choice == "1":
+        print("\n--- Add New Contact ---")
+        name = input("Enter contact name: ").strip()
+        phone = input("Enter phone number: ").strip()
+        email = input("Enter email address: ").strip()
+        address = input("Enter physical address: ").strip()
+
+        # Store the details in the dictionary
+        contacts[name] = {
+            "phone": phone,
+            "email": email,
+            "address": address
+        }
+        print(f"Contact '{name}' added successfully!")
+
+    # Step 5: View all contacts
+    elif choice == "2":
+        print("\n--- Contact List ---")
+        if not contacts:
+            print("No contacts found in the contact book.")
+        else:
+            for person, info in contacts.items():
+                print(f"Name: {person}")
+                print(f"Phone: {info['phone']}")
+                print(f"Email: {info['email']}")
+                print(f"Address: {info['address']}")
+                print("----------------------------")
+
+    # Step 6: Search for a contact
+    elif choice == "3":
+        print("\n--- Search Contact ---")
+        search_name = input("Enter the contact name to search: ").strip()
+        if search_name in contacts:
+            info = contacts[search_name]
+            print(f"Name: {search_name}")
+            print(f"Phone: {info['phone']}")
+            print(f"Email: {info['email']}")
+            print(f"Address: {info['address']}")
+        else:
+            print(f"No contact found with the name '{search_name}'.")
+
+    # Step 7: Update an existing contact
+    elif choice == "4":
+        print("\n--- Update Contact ---")
+        update_name = input("Enter the contact name to update: ").strip()
+        if update_name in contacts:
+            new_phone = input("Enter new phone number: ").strip()
+            new_email = input("Enter new email address: ").strip()
+            new_address = input("Enter new address: ").strip()
+
+            contacts[update_name] = {
+                "phone": new_phone,
+                "email": new_email,
+                "address": new_address
+            }
+            print(f"Contact '{update_name}' updated successfully!")
+        else:
+            print(f"No contact found with the name '{update_name}'.")
+
+    # Step 8: Delete a contact
+    elif choice == "5":
+        print("\n--- Delete Contact ---")
+        delete_name = input("Enter the contact name to delete: ").strip()
+        if delete_name in contacts:
+            del contacts[delete_name]
+            print(f"Contact '{delete_name}' deleted successfully!")
+        else:
+            print(f"No contact found with the name '{delete_name}'.")
+
+    # Step 9: Exit the program
+    elif choice == "6":
+        print("\nThank you for using the Contact Book. Goodbye!")
+        break
+
+    # Step 10: Handle invalid input
+    else:
+        print("Invalid choice! Please enter a number from 1 to 6.")
