@@ -1,0 +1,27 @@
+# Task 3: Password Generator
+
+import secrets
+import string
+
+print("===================================")
+print("     SECURE PASSWORD GENERATOR     ")
+print("===================================")
+
+# Ask the user for length
+try:
+    size = int(input("How long should the password be? "))
+
+    if size < 4:
+        print("Password length should be at least 4 for better security.")
+    else:
+        # Create a pool of characters
+        pool = string.ascii_letters + string.digits + string.punctuation
+
+        # Generate the password using secrets for stronger randomness
+        password = ''.join(secrets.choice(pool) for _ in range(size))
+
+        print("\nGenerated Password:")
+        print(password)
+
+except ValueError:
+    print("Invalid input! Please enter a number.")
