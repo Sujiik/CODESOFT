@@ -1,0 +1,124 @@
+import json
+import os
+
+# File to store contacts
+FILE_NAME = "contacts.json"
+
+# Load contacts if file exists
+if os.path.exists(FILE_NAME):
+    with open(FILE_NAME, "r") as f:
+        contacts = json.load(f)
+else:
+    contacts = {}
+
+def save_contacts():
+    """Save contacts to a JSON file."""
+    with open(FILE_NAME, "w") as f:
+        json.dump(contacts, f, indent=4)
+
+def add_contact():
+    """Add a new contact to the contact book."""
+    name = input("Enter name: ").strip()
+    if name in contacts:
+        print("Contact already exists. Try updating instead.")
+        return
+
+    phone = input("Enter phone number: ").strip()
+    if not phone.isdigit():
+        print("Invalid phone number! Please use only digits.")
+        return
+
+    email = input("Enter email address: ").strip()
+    if "@" not in email or "." not in email:
+        print("Invalid email format!")
+        return
+
+    address = input("Enter address: ").strip()
+
+    contacts[name] = {"phone": phone, "email": email, "address": address}
+    save_contacts()
+    print(f"✅ Contact '{name}' added successfully!")
+
+def view_contacts():
+    """View all saved contacts."""
+    if not contacts:
+        print("No contacts found.")
+    else:
+        print("\n--- Contact List ---")
+        for name, details in contacts.items():
+            print(f"👤 {name}")
+            print(f"📞 Phone: {details['phone']}")
+            print(f"📧 Email: {details['email']}")
+            print(f"🏠 Address: {details['address']}")
+            print("-" * 25)
+
+def search_contact():
+    """Search for a contact by name."""
+    name = input("Enter the name to search: ").strip()
+    if name in contacts:
+        info = contacts[name]
+        print("\n--- Contact Found ---")
+        print(f"👤 {name}")
+        print(f"📞 Phone: {info['phone']}")
+        print(f"📧 Email: {info['email']}")
+        print(f"🏠 Address: {info['address']}")
+    else:
+        print("Contact not found.")
+
+def update_contact():
+    """Update an existing contact."""
+    name = input("Enter the name to update: ").strip()
+    if name in contacts:
+        print("Leave blank to keep old value.")
+        phone = input("Enter new phone number: ").strip() or contacts[name]["phone"]
+        email = input("Enter new email: ").strip() or contacts[name]["email"]
+        address = input("Enter new address: ").strip() or contacts[name]["address"]
+
+        contacts[name] = {"phone": phone, "email": email, "address": address}
+        save_contacts()
+        print(f"✅ Contact '{name}' updated successfully!")
+    else:
+        print("Contact not found.")
+
+def delete_contact():
+    """Delete a contact from the contact book."""
+    name = input("Enter the name to delete: ").strip()
+    if name in contacts:
+        del contacts[name]
+        save_contacts()
+        print(f"🗑️ Contact '{name}' deleted successfully!")
+    else:
+        print("Contact not found.")
+
+def menu():
+    """Display the contact book menu and handle user choices."""
+    while True:
+        print("\n===== Contact Book Menu =====")
+        print("1. Add Contact")
+        print("2. View All Contacts")
+        print("3. Search Contact")
+        print("4. Update Contact")
+        print("5. Delete Contact")
+        print("6. Exit")
+
+        choice = input("Enter your choice (1-6): ")
+
+        if choice == "1":
+            add_contact()
+        elif choice == "2":
+            view_contacts()
+        elif choice == "3":
+            search_contact()
+        elif choice == "4":
+            update_contact()
+        elif choice == "5":
+            delete_contact()
+        elif choice == "6":
+            print("👋 Exiting Contact Book. Goodbye!")
+            break
+        else:
+            print("❌ Invalid choice. Please enter a number from 1 to 6.")
+
+# Run the program
+if __name__ == "__main__":
+    menu()
