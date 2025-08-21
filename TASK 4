@@ -1,0 +1,46 @@
+# Task 4: Rock-Paper-Scissors Game
+
+import random
+
+def decide_winner(player, computer):
+    """Function to decide the winner based on game rules."""
+    if player == computer:
+        return "It's a draw!"
+    elif (player == "rock" and computer == "scissors") or \
+         (player == "scissors" and computer == "paper") or \
+         (player == "paper" and computer == "rock"):
+        return "You win 🎉"
+    else:
+        return "Computer wins 😢"
+
+def main():
+    moves = ["rock", "paper", "scissors"]
+
+    print("Welcome to Rock-Paper-Scissors Game!")
+    print("Rules: Rock beats Scissors | Scissors beat Paper | Paper beats Rock")
+
+    while True:
+        # User move
+        user_move = input("\nEnter your move (rock/paper/scissors): ").lower()
+
+        if user_move not in moves:
+            print("Invalid choice. Please try again.")
+            continue
+
+        # Computer move
+        comp_move = random.choice(moves)
+        print(f"Computer played: {comp_move}")
+
+        # Decide the winner
+        result = decide_winner(user_move, comp_move)
+        print("Result:", result)
+
+        # Replay option
+        replay = input("Play again? (yes/no): ").lower()
+        if replay != "yes":
+            print("Game Over. Thanks for playing! 👋")
+            break
+
+# Run the game
+if __name__ == "__main__":
+    main()
